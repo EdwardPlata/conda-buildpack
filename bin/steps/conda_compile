@@ -1,5 +1,5 @@
 set +e
-runtime-fixer conda-runtime.txt
+
 MINICONDA_VERSION=$(cat conda-runtime.txt)
 
 VENDOR_URL="https://repo.continuum.io"
