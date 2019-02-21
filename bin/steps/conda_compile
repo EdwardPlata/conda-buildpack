@@ -1,5 +1,7 @@
 set +e
 
+# Removing empty lines
+sed -i '/^$/d' conda-runtime.txt
 MINICONDA_VERSION=$(cat conda-runtime.txt)
 
 VENDOR_URL="https://repo.continuum.io"
