@@ -1,6 +1,8 @@
 set +e
 
 MINICONDA_VERSION=$(cat conda-runtime.txt | tr -d "\n")
+IFS='-' read -r -a VERSION_ARRAY <<< ${MINICONDA_VERSION}
+VERSION=${VERSION_ARRAY[1]}
 
 VENDOR_URL="https://repo.continuum.io"
 
@@ -18,7 +20,8 @@ if [ ! -d /app/.heroku/miniconda ]; then
 fi
 
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
-echo "added pinned file in $HOME/.heroku/miniconda/conda-meta/pinned"
+echo "conda ==${VERSION} >> $HOME/.heroku/miniconda/conda-meta/pinned
+echo "added pinned file and version in $HOME/.heroku/miniconda/conda-meta/pinned"
 conda install nomkl
 
 
