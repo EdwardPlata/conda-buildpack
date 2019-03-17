@@ -7,6 +7,11 @@ VERSION=${VERSION_ARRAY[1]}
 # The location of the pre-compiled python binary.
 VENDORED_MINICONDA="${VENDOR_URL}/miniconda/${MINICONDA_VERSION}-Linux-x86_64.sh"
 
+if [ -f .condarc ]; then
+    puts-step "Copying condarc file in home directory"
+    cp .condarc /root
+fi
+
 if [ ! -d /app/.heroku/miniconda ]; then
     puts-step "Preparing Python/Miniconda Environment"
     curl -Os $VENDORED_MINICONDA
@@ -19,7 +24,7 @@ fi
 echo "nomkl" > $HOME/.heroku/miniconda/conda-meta/pinned
 echo "conda ==${VERSION}" >> $HOME/.heroku/miniconda/conda-meta/pinned
 echo "added pinned file and version in $HOME/.heroku/miniconda/conda-meta/pinned"
-conda install nomkl
+conda install nomkl --yes | indent
 
 
 if [ -f conda-requirements.txt ]; then
